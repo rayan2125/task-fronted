@@ -6,7 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
 import { API_CONSTANTS } from '@/constants/ApiCollection';
 import { callAxiosPatch } from '@/services/api';
-import { ALERT_TYPE, Dialog, AlertNotificationRoot, Toast } from 'react-native-alert-notification';
+import { ALERT_TYPE, AlertNotificationRoot, Dialog,} from 'react-native-alert-notification';
 
 
 
@@ -29,31 +29,32 @@ const UpdateTask = ({ route }) => {
         try {
 
             let res = await callAxiosPatch(`${API_CONSTANTS.task}${_id}`, taskData);
-            // console.log(res)
+            
             Dialog.show({
                 type: ALERT_TYPE.SUCCESS,
                 title: 'Success',
                 textBody:'Your task has been updated successfully!',
                 button: 'close',
+               
               })
-
+              
         } catch (err) {
             if (err instanceof Yup.ValidationError) {
-                // Create an errors object from the array of validation errors
+                
                 const formErrors = {};
                 err.inner.forEach((error) => {
                     formErrors[error.path] = error.message;
                 });
                 setErrors(formErrors);
             } else {
-                // Handle other errors (e.g., network errors)
+            
                 console.error(err);
             }
         }
     };
 
     return (
-        
+        <AlertNotificationRoot>
 
         <View style={{ flex: 1, margin: 10 }}>
             <TouchableOpacity onPress={handleBack}>
@@ -89,6 +90,8 @@ const UpdateTask = ({ route }) => {
                 onPress={handleSubmit}
             />
         </View>
+        </AlertNotificationRoot>
+
         
     );
 };

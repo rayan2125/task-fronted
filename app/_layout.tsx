@@ -21,16 +21,16 @@ export default function RootLayout() {
 
 
   return (
+    <AlertNotificationRoot>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-    <AlertNotificationRoot>
 
     <NativeBaseProvider>
 
       <Rootnavigation />
     </NativeBaseProvider>
-    </AlertNotificationRoot>
     </PersistGate>
     </Provider>
+    </AlertNotificationRoot>
   );
 }

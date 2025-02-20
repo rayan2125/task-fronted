@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { API_CONSTANTS } from '@/constants/ApiCollection';
 import { callAxios } from '@/services/api';
 import * as Yup from 'yup';
+import { ALERT_TYPE, AlertNotificationRoot, Dialog } from 'react-native-alert-notification';
 
 // Define a Yup schema for task validation
 const taskValidationSchema = Yup.object().shape({
@@ -36,24 +37,33 @@ const CreateTask = () => {
       
       // If valid, call your API
       let res = await callAxios(API_CONSTANTS.task, taskData);
-      console.log("Task created:", res);
-      // Optionally navigate back or show success message
+      Dialog.show({
+        type: ALERT_TYPE.SUCCESS,
+        title: 'Success',
+        textBody:'Your task has been Created!',
+        button: 'close',
+      
+      })
+      
+      
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
-        // Create an errors object from the array of validation errors
+        
         const formErrors = {};
         err.inner.forEach((error) => {
           formErrors[error.path] = error.message;
         });
         setErrors(formErrors);
       } else {
-        // Handle other errors (e.g., network errors)
+        
         console.error(err);
       }
     }
   };
 
   return (
+    <AlertNotificationRoot>
+
     <View style={{ flex: 1, margin: 10 }}>
       <TouchableOpacity onPress={handleBack}>
         <Ionicons name="arrow-back" size={30} color="black" />
@@ -88,6 +98,7 @@ const CreateTask = () => {
         onPress={handleSubmit}
       />
     </View>
+    </AlertNotificationRoot>
   );
 };
 

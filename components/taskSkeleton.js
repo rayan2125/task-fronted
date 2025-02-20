@@ -5,7 +5,7 @@ import {Skeleton} from "native-base"
 const TaskSkeleton = () => {
     return (
         <View style={{ marginTop: 10, gap: 15,marginVertical:5,marginHorizontal:4 }}>
-            <View style={{ flexDirection: 'row', gap: 20 }}>
+            <View style={{ flexDirection: 'row',  }}>
                 <View style={{ position: "absolute", left: 20, zIndex: 9, top: 40,flexDirection:'row',alignItems:'center' }}>
 
                     <Skeleton
@@ -24,13 +24,23 @@ const TaskSkeleton = () => {
                         
                         background="#D3D2F9"
                     />
+                    <View style={{flexDirection:'row',gap:50,top:30}}>
+
                     <Skeleton
                         rounded="full"
                         h={18}
-                        w={200}
+                        w={50}
                         
                         background="#FADDEB"
                     />
+                    <Skeleton
+                        rounded="full"
+                        h={18}
+                        w={50}
+                        
+                        background="#FADDEB"
+                    />
+                    </View>
                     </View>
                 </View>
                 <Skeleton
@@ -43,7 +53,7 @@ const TaskSkeleton = () => {
                 </Skeleton>
             </View>
 
-            <View style={{ position: 'absolute', right: 25, top: 15 }}>
+            <View style={{ position: 'absolute', right: 15, top: 90 }}>
 
                 <Skeleton
                     h={5}
@@ -52,15 +62,7 @@ const TaskSkeleton = () => {
                     background="#E1D5AD"
                 />
             </View>
-            <View style={{ position: 'absolute', left: 25, bottom: 40 }}>
-
-                <Skeleton
-                    h={5}
-                    w={75}
-                    rounded="xl"
-                    background="#FFC76C"
-                />
-            </View>
+            
 
         </View>
 

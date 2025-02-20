@@ -75,6 +75,7 @@ setLoading(false)
           // navigation.navigate("Login");
         })
         .catch((err) => {
+          setLoading(false)
           console.error(err);
         });
     } catch (validationError) {
