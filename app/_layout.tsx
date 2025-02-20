@@ -1,39 +1,36 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
+
+
+
+
 import 'react-native-reanimated';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+import Rootnavigation from "../routers/rootNavigation"
+import { StatusBar, Text, View } from 'react-native';
+import { NativeBaseProvider } from "native-base";
+import { AlertNotificationRoot } from 'react-native-alert-notification';
+import { Provider } from 'react-redux'
+import store from "@/redux/store"
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistStore } from 'redux-persist';
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+  let persistor = persistStore(store)
 
-  if (!loaded) {
-    return null;
-  }
+
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+    <AlertNotificationRoot>
+
+    <NativeBaseProvider>
+
+      <Rootnavigation />
+    </NativeBaseProvider>
+    </AlertNotificationRoot>
+    </PersistGate>
+    </Provider>
   );
 }
